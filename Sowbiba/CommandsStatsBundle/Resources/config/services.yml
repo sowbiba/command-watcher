@@ -1,0 +1,15 @@
+services:
+    sowbiba_commands_stats.command_listener:
+        class: Sowbiba\CommandsStatsBundle\Listener\CommandListener
+        arguments:
+            - '@sowbiba_commands_stats.stop_watch'
+            - %sowbiba_commands_stats.commands%
+            - %sowbiba_commands_stats.log_path%
+            - %sowbiba_commands_stats.log_prefix%
+        tags:
+            - { name: kernel.event_listener, event: console.command, method: onCommandStart }
+            - { name: kernel.event_listener, event: console.terminate, method: onCommandEnd }
+
+
+    sowbiba_commands_stats.stop_watch:
+        class: Symfony\Component\Stopwatch\Stopwatch
