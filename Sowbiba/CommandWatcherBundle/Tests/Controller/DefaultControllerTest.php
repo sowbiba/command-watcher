@@ -1,6 +1,6 @@
 <?php
 
-namespace Sowbiba\CommandsStatsBundle\Tests\Controller;
+namespace Sowbiba\CommandWatcherBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

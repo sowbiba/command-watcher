@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('SowbibaCommandsStatsBundle:Default:index.html.twig');
+        return $this->render('SowbibaCommandWatcherBundle:Default:index.html.twig');
     }
 }

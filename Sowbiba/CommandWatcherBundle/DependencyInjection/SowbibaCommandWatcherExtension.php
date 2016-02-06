@@ -1,6 +1,6 @@
 <?php
 
-namespace Sowbiba\CommandsStatsBundle\DependencyInjection;
+namespace Sowbiba\CommandWatcherBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class SowbibaCommandsStatsExtension extends Extension
+class SowbibaCommandWatcherExtension extends Extension
 {
     /**
      * {@inheritdoc}

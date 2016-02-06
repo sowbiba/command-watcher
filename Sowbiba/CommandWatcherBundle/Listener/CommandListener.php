@@ -5,7 +5,7 @@
  * Date: 06/02/16
  * Time: 13:27
  */
-namespace Sowbiba\CommandsStatsBundle\Listener;
+namespace Sowbiba\CommandWatcherBundle\Listener;
 
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
@@ -16,7 +16,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Class CommandListener
- * @package Sowbiba\CommandsStatsBundle\Listener
+ * @package Sowbiba\CommandWatcherBundle\Listener
  *
  * @link http://symfony.com/doc/current/components/console/events.html
  * @link http://symfony.com/doc/current/components/stopwatch.html

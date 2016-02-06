@@ -1,6 +1,6 @@
 services:
     sowbiba_commands_stats.command_listener:
-        class: Sowbiba\CommandsStatsBundle\Listener\CommandListener
+        class: Sowbiba\CommandWatcherBundle\Listener\CommandListener
         arguments:
             - '@sowbiba_commands_stats.stop_watch'
             - %sowbiba_commands_stats.commands%
