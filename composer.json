@@ -1,0 +1,25 @@
+{
+    "name": "sowbiba/command-watcher-bundle",
+    "description": "Tool to watch symfony commands, generate statistics file with times/duration/memory and graph",
+    "keywords": ["Command","Watch","Graph"],
+    "type": "library",
+    "license": "LGPL",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Sowbiba",
+            "email": "isow@profideo.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/symfony": ">=2.3",
+        "symfony/stopwatch": ">=2.3"
+
+    },
+    "autoload": {
+        "psr-0": {
+            "Sowbiba\\CommandWatcherBundle": ""
+        }
+    }
+}
