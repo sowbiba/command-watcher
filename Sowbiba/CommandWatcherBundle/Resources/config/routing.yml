@@ -1,3 +1,3 @@
-sowbiba_commands_stats_homepage:
+sowbiba_command_watcher_homepage:
     path:     /
     defaults: { _controller: SowbibaCommandWatcherBundle:Default:index }

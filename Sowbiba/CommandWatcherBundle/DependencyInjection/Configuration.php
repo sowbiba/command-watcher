@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('sowbiba_commands_stats');
+        $rootNode = $treeBuilder->root('sowbiba_command_watcher');
 
         $rootNode
             ->children()
