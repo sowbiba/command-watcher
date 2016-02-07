@@ -1,1 +1,75 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Command watcher"/>
+        <meta name="keywords" content="Command, Watcher, Graph"/>
+        <meta name="author" content="Ibrahima SOW"/>
+        <meta name="robots" content="noindex,nofollow"/>
+
+        <title>Command Watcher - Graphs</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+              integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+              crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="content_container" class="container">
+            <div class="content">
+                <div class="header">
+                    <div class="page-header">
+                        <h1>Command Watcher</h1>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form id="command-form" action="" method="post" name="command-form">
+                            <h3>Choose a command</h3>
+                            <div class="row form-row ">
+                                <div class="row row-label">
+                                    <label id="command-label" for="command">
+                                        Command :
+                                    </label>
+                                </div>
+                                <div class="row row-data">
+                                    <div class="row-field col-8 clearfix ">
+                                        <select class="form-control" name="command" id="command">
+                                            <option value=""></option>
+                                            <option value="6">Oui</option>
+                                            <option selected="selected" value="4">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        {% if chart is defined %}
+                            <div id="linechart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                {% block footer %}{% endblock footer %}
+            </footer>
+        </div>
+
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+                integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+                crossorigin="anonymous"></script>
+
+        {% if chart is defined %}
+            <script src="//code.highcharts.com/4.1.8/highcharts.js"></script>
+            <script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
+            <script type="text/javascript">
+                {{ chart(chart) }}
+            </script>
+        {% endif %}
+    </body>
+</html>
