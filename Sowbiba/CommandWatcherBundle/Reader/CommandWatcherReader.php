@@ -85,19 +85,21 @@ class CommandWatcherReader
 
     public function getDurationLogs($command)
     {
-        return array_map(function($log) {
-            return [
-              $log['start'] => $log['duration']
-            ];
-        }, $this->getLogs($command));
+        $logs = [];
+        foreach ($this->getLogs($command) as $log) {
+            $logs[date("d/m/Y H:i:s", $log['start'])] = floatval($log['duration']);
+        }
+
+        return $logs;
     }
 
     public function getMemoryLogs($command)
     {
-        return array_map(function($log) {
-            return [
-                $log['start'] => $log['memory']
-            ];
-        }, $this->getLogs($command));
+        $logs = [];
+        foreach ($this->getLogs($command) as $log) {
+            $logs[date("d/m/Y H:i:s", $log['start'])] = floatval($log['memory']);
+        }
+
+        return $logs;
     }
 } 

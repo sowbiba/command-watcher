@@ -15,25 +15,44 @@ class CommandWatcherController extends Controller
         $commands = $logReader->getCommands();
 
         $parameters = [
-            'commands' => $commands
+            'commands' => $commands,
+            'categories' => ['duration', 'memory']
         ];
 
         if ('POST' === $request->getMethod()) {
             $command = $request->request->get('command');
-            var_dump($command);
-            // Chart
-            $series = array(
-                array("name" => "Data Serie Name", "data" => array(1, 2, 4, 5, 6, 3, 8))
-            );
+            $category = $request->request->get('category');
 
-            $ob = new Highchart();
-            $ob->chart->renderTo('linechart');  // The #id of the div where to render the chart
-            $ob->title->text('Chart Title');
-            $ob->xAxis->title(array('text' => "Horizontal axis title"));
-            $ob->yAxis->title(array('text' => "Vertical axis title"));
-            $ob->series($series);
+            if (!empty($command)) {
+                $logs = [];
+                $unit = "";
 
-            $parameters['chart'] = $ob;
+                if ('duration' === $category) {
+                    $logs = $logReader->getDurationLogs($command);
+                    $unit = "seconds";
+                }
+                if ('memory' === $category) {
+                    $logs = $logReader->getMemoryLogs($command);
+                    $unit = "Mb";
+                }
+
+                // Chart
+                $series = array(
+                    array("name" => sprintf("%s - %s statistics", $command, ucfirst($category)), "data" => array_values($logs)),
+                );
+
+                $ob = new Highchart();
+                $ob->chart->renderTo('linechart');  // The #id of the div where to render the chart
+                $ob->title->text('Chart Title');
+                $ob->xAxis->title(array('text' => "Date and time"));
+                $ob->xAxis->categories(array_keys($logs));
+                $ob->yAxis->title(array('text' => sprintf("%s (in %s)", ucfirst($category), $unit)));
+                $ob->series($series);
+
+                $parameters['chart'] = $ob;
+                $parameters['selected_command'] = $command;
+                $parameters['selected_category'] = $category;
+            }
         }
 
         return $this->render('SowbibaCommandWatcherBundle:CommandWatcher:index.html.twig', $parameters);
