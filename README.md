@@ -42,6 +42,11 @@ Ob\HighchartsBundle is required for the graphs
   ```
     log_prefix: "my-prefix_"
   ```
-  
-4. Make sure directory defined in `log_path` exists and is writable by the web user
-5. The graphs are accessible via `/command-watch`
+4. Import the application routing in `app/config/routing.yml`
+```
+SowbibaCommandWatcher:
+    resource: "@SowbibaCommandWatcherBundle/Resources/config/routing.yml"
+```
+
+5. Make sure directory defined in `log_path` exists and is writable by the web user
+6. The graphs are accessible via `/command-watch`
