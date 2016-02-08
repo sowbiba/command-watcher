@@ -42,6 +42,7 @@ Ob\HighchartsBundle is required for the graphs
   ```
     log_prefix: "my-prefix_"
   ```
+  
 4. Import the application routing in `app/config/routing.yml`
 ```
 SowbibaCommandWatcher:
