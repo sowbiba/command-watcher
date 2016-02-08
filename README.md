@@ -49,5 +49,6 @@ SowbibaCommandWatcher:
     resource: "@SowbibaCommandWatcherBundle/Resources/config/routing.yml"
 ```
 
+
 5. Make sure directory defined in `log_path` exists and is writable by the web user
 6. The graphs are accessible via `/command-watch`
