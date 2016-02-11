@@ -5,16 +5,11 @@
  * Date: 07/02/16
  * Time: 13:27
  */
-
 namespace Sowbiba\CommandWatcherBundle\Reader;
 
 
-class CommandWatcherReader
+class FileReader extends AbstractReader
 {
-    /**
-     * @var array
-     */
-    private $listenedCommands;
 
     /**
      * @var string
@@ -37,14 +32,10 @@ class CommandWatcherReader
         $logsPrefix
     )
     {
-        $this->listenedCommands     = $listenedCommands;
         $this->logsPath             = rtrim($logsPath, '/') . '/';
         $this->logsPrefix           = $logsPrefix;
-    }
 
-    public function getCommands()
-    {
-        return $this->listenedCommands;
+        parent::__construct($listenedCommands);
     }
 
     private function getFile($command)
@@ -78,26 +69,6 @@ class CommandWatcherReader
                 'memory' => $lineData[3],
                 'arguments' => $lineData[4],
             ];
-        }
-
-        return $logs;
-    }
-
-    public function getDurationLogs($command)
-    {
-        $logs = [];
-        foreach ($this->getLogs($command) as $log) {
-            $logs[date("d/m/Y H:i:s", $log['start'])] = floatval($log['duration']);
-        }
-
-        return $logs;
-    }
-
-    public function getMemoryLogs($command)
-    {
-        $logs = [];
-        foreach ($this->getLogs($command) as $log) {
-            $logs[date("d/m/Y H:i:s", $log['start'])] = floatval($log['memory']);
         }
 
         return $logs;
