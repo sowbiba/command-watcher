@@ -3,8 +3,8 @@ services:
         class: Sowbiba\CommandWatcherBundle\Listener\CommandListener
         arguments:
             - '@sowbiba_command_watcher.stop_watch'
-            - '@sowbiba_command_watcher.log_writer'
-            - %sowbiba_command_watcher.commands%
+            - '%sowbiba_command_watcher.log_reader%'
+            - '%sowbiba_command_watcher.log_writer%'
         tags:
             - { name: kernel.event_listener, event: console.command, method: onCommandStart }
             - { name: kernel.event_listener, event: console.terminate, method: onCommandEnd }
@@ -13,15 +13,15 @@ services:
     sowbiba_command_watcher.stop_watch:
         class: Symfony\Component\Stopwatch\Stopwatch
 
-    sowbiba_command_watcher.log_reader:
-        class: Sowbiba\CommandWatcherBundle\Reader\FileReader
-        arguments:
-            - %sowbiba_command_watcher.commands%
-            - %sowbiba_command_watcher.log_path%
-            - %sowbiba_command_watcher.log_prefix%
-
-    sowbiba_command_watcher.log_writer:
-        class: Sowbiba\CommandWatcherBundle\Writer\FileWriter
-        arguments:
-            - %sowbiba_command_watcher.log_path%
-            - %sowbiba_command_watcher.log_prefix%
+#    sowbiba_command_watcher.log_reader:
+#        class: Sowbiba\CommandWatcherBundle\Reader\FileReader
+#        arguments:
+#            - %sowbiba_command_watcher.commands%
+#            - %sowbiba_command_watcher.log_path%
+#            - %sowbiba_command_watcher.log_prefix%
+#
+#    sowbiba_command_watcher.log_writer:
+#        class: Sowbiba\CommandWatcherBundle\Writer\FileWriter
+#        arguments:
+#            - %sowbiba_command_watcher.log_path%
+#            - %sowbiba_command_watcher.log_prefix%

@@ -33,7 +33,7 @@ class SowbibaCommandWatcherExtension extends Extension
     private function defineParameters(ContainerInterface $container, array $config)
     {
         $container->setParameter('sowbiba_command_watcher.commands', $config['commands']);
-        $container->setParameter('sowbiba_command_watcher.log_path', $config['log_path']);
-        $container->setParameter('sowbiba_command_watcher.log_prefix', isset($config['log_prefix']) ? $config['log_prefix'] : '');
+        $container->setParameter('sowbiba_command_watcher.log_writer', $config['log_writer']);
+        $container->setParameter('sowbiba_command_watcher.log_reader', $config['log_reader']);
     }
 }

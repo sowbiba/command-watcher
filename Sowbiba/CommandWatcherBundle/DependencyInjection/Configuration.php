@@ -26,10 +26,10 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')
                     ->end() // end of commands children prototype
                 ->end() // end of commands
-                ->scalarNode('log_path')->isRequired()->cannotBeEmpty()
-                ->end() // end of log_path
-                ->scalarNode('log_prefix')
-                ->end() // end of log_prefix
+                ->scalarNode('log_writer')->isRequired()->cannotBeEmpty()
+                ->end() // end of log_writer
+                ->scalarNode('log_reader')->isRequired()->cannotBeEmpty()
+                ->end() // end of log_reader
             ->end()
         ;
 

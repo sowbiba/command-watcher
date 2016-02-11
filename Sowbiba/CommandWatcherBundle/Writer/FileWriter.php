@@ -20,7 +20,7 @@ class FileWriter extends AbstractWriter
 
     public function __construct($logsPath, $logsPrefix)
     {
-        $this->logsPath     = $logsPath;
+        $this->logsPath     = rtrim($logsPath, '/') . '/';
         $this->logsPrefix   = $logsPrefix;
     }
 
