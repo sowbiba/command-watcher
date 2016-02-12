@@ -57,7 +57,7 @@ SowbibaCommandWatcher:
 
 # Examples of service configuration for available Reader/Writer
 
-** File **
+**File**
 
 ```
     sowbiba_command_watcher.log_reader:
@@ -74,7 +74,7 @@ SowbibaCommandWatcher:
             - ""
 ```
 
-** Mongo **
+**Mongo**
 
 ```
     sowbiba_command_watcher.log_reader:
