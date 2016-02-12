@@ -77,6 +77,11 @@ SowbibaCommandWatcher:
 **Mongo**
 
 ```
+parameters:
+    my_mongo_database: "command-watcher"
+    my_mongo_dsn: "mongodb://172.17.0.5:27017/command-watcher"
+
+services:
     sowbiba_command_watcher.log_reader:
         class: Sowbiba\CommandWatcherBundle\Reader\MongoReader
         arguments:
