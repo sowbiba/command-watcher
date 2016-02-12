@@ -3,7 +3,9 @@ This bundle is for supervising your symfony commands.
 
 It uses the Symfony Stopwatch component to get duration and memory statistics.
 
-When one of the commands registered in the config file starts, a stopwatch event is triggered and is stopped at the command end. Each command has its log file in the `log_path` where to put stats data `start;end;duration;memory;command parameters`.
+When one of the commands registered in the config file starts, a stopwatch event is triggered and is stopped at the command end.
+Data collected are written with the service `log_writer` defined in the configuration.
+Each command has its log entry with `start;end;duration;memory;command parameters`.
 
 You can have a graph of duration/memory statistics calling `/command-watch` url.
 
@@ -36,7 +38,8 @@ Ob\HighchartsBundle is required for the graphs
       - 'app:my-test'
       - 'cache:clear'
       - 'assets:install'
-    log_path: "%kernel.root_dir%/tmp"
+    log_writer: @my_log_writer
+    log_reader: @my_log_reader
     ```
   If you want to prefix log files, add
   ```
@@ -49,6 +52,41 @@ SowbibaCommandWatcher:
     resource: "@SowbibaCommandWatcherBundle/Resources/config/routing.yml"
 ```
 
+5. The graphs are accessible via `/command-watch`
 
-5. Make sure directory defined in `log_path` exists and is writable by the web user
-6. The graphs are accessible via `/command-watch`
+
+# Examples of service configuration for available Reader/Writer
+
+__ File __
+
+```
+    sowbiba_command_watcher.log_reader:
+        class: Sowbiba\CommandWatcherBundle\Reader\FileReader
+        arguments:
+            - %sowbiba_command_watcher.commands%
+            - "app/tmp"
+            - ""
+
+    sowbiba_command_watcher.log_writer:
+        class: Sowbiba\CommandWatcherBundle\Writer\FileWriter
+        arguments:
+            - "app/tmp"
+            - ""
+```
+
+__ Mongo __
+
+```
+    sowbiba_command_watcher.log_reader:
+        class: Sowbiba\CommandWatcherBundle\Reader\MongoReader
+        arguments:
+            - "%my_mongo_dsn%"
+            - "%my_mongo_database%"
+            - %sowbiba_command_watcher.commands%
+
+    sowbiba_command_watcher.log_writer:
+        class: Sowbiba\CommandWatcherBundle\Writer\MongoWriter
+        arguments:
+            - "%my_mongo_dsn%"
+            - "%my_mongo_database%"
+```
