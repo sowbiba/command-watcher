@@ -8,11 +8,9 @@
 
 namespace Sowbiba\CommandWatcherBundle\Writer;
 
-
-use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\Filesystem\Exception\IOException;
 
-class MongoWriter extends AbstractWriter
+class MongoWriter implements WriterInterface
 {
     /**
      * The Mongo client to request DB.
@@ -41,10 +39,16 @@ class MongoWriter extends AbstractWriter
      */
     public function __construct($dsn, $db)
     {
-        $this->client = new \MongoClient($dsn);
-        $this->db = $db;
+        $this->client   = new \MongoClient($dsn);
+        $this->db       = $db;
     }
 
+    /**
+     * @param array $log
+     * @param $identifier
+     *
+     * @return array|bool
+     */
     public function write(array $log, $identifier)
     {
         $this->collection = $this->client->selectCollection($this->db, $identifier);

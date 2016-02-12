@@ -10,11 +10,24 @@ namespace Sowbiba\CommandWatcherBundle\Reader;
 
 interface ReaderInterface
 {
-    public function getCommands();
-
+    /**
+     * @param $command
+     *
+     * @return array
+     */
     public function getLogs($command);
 
+    /**
+     * @param $command
+     *
+     * @return array
+     */
     public function getDurationLogs($command);
 
+    /**
+     * @param $command
+     *
+     * @return array
+     */
     public function getMemoryLogs($command);
 }

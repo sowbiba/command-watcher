@@ -12,18 +12,30 @@ namespace Sowbiba\CommandWatcherBundle\Writer;
 use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\Filesystem\Exception\IOException;
 
-class FileWriter extends AbstractWriter
+class FileWriter implements WriterInterface
 {
     private $logsPath;
 
     private $logsPrefix;
 
+    /**
+     * @param string $logsPath
+     * @param string $logsPrefix
+     */
     public function __construct($logsPath, $logsPrefix)
     {
         $this->logsPath     = rtrim($logsPath, '/') . '/';
         $this->logsPrefix   = $logsPrefix;
     }
 
+    /**
+     * @param array $log
+     * @param $identifier
+     *
+     * @throws ContextErrorException
+     *
+     * @return bool
+     */
     public function write(array $log, $identifier)
     {
         if (!is_dir($this->logsPath)) {
@@ -57,5 +69,7 @@ class FileWriter extends AbstractWriter
         if (! file_put_contents($filename, $logContent, FILE_APPEND | LOCK_EX)) {
             throw new IOException("Cannot write to $filename");
         }
+
+        return true;
     }
 }

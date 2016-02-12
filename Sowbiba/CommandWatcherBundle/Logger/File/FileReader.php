@@ -8,8 +8,14 @@
 namespace Sowbiba\CommandWatcherBundle\Reader;
 
 
-class FileReader extends AbstractReader
+use Sowbiba\CommandWatcherBundle\Logger\Parser;
+
+class FileReader implements ReaderInterface
 {
+    /**
+     * @var array
+     */
+    private $listenedCommands;
 
     /**
      * @var string
@@ -23,8 +29,8 @@ class FileReader extends AbstractReader
 
     /**
      * @param array $listenedCommands
-     * @param $logsPath
-     * @param $logsPrefix
+     * @param string $logsPath
+     * @param string $logsPrefix
      */
     public function __construct(
         array $listenedCommands,
@@ -34,26 +40,24 @@ class FileReader extends AbstractReader
     {
         $this->logsPath             = rtrim($logsPath, '/') . '/';
         $this->logsPrefix           = $logsPrefix;
-
-        parent::__construct($listenedCommands);
-    }
-
-    private function getFile($command)
-    {
-        $commandSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $command);
-
-        return sprintf(
-            "%s%s%s.log",
-            $this->logsPath,
-            $this->logsPrefix,
-            $commandSlug
-        );
+        $this->listenedCommands     = $listenedCommands;
     }
 
     public function getLogs($command)
     {
+        if (!in_array($command, $this->listenedCommands)) {
+            throw new \InvalidArgumentException("Command is not listened");
+        }
+
+        $filename = sprintf(
+            "%s%s%s.log",
+            $this->logsPath,
+            $this->logsPrefix,
+            Parser::slugifyCommand($command)
+        );
+
         $logs = [];
-        foreach (file($this->getFile($command)) as $line) {
+        foreach (file($filename) as $line) {
             $lineData = explode(";", $line);
             /**
              * $start,
@@ -72,5 +76,15 @@ class FileReader extends AbstractReader
         }
 
         return $logs;
+    }
+
+    public function getDurationLogs($command)
+    {
+        return Parser::get($this->getLogs($command), 'duration');
+    }
+
+    public function getMemoryLogs($command)
+    {
+        return Parser::get($this->getLogs($command), 'memory');
     }
 } 

@@ -11,5 +11,10 @@ namespace Sowbiba\CommandWatcherBundle\Writer;
 
 interface WriterInterface
 {
+    /**
+     * @param array $log
+     * @param $identifier
+     * @return mixed
+     */
     public function write(array $log, $identifier);
 }
