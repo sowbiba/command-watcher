@@ -1,10 +1,14 @@
+parameters:
+    my_mongo_database: "command-watcher"
+    my_mongo_dsn: "mongodb://172.17.0.5:27017/command-watcher"
+
 services:
     sowbiba_command_watcher.command_listener:
         class: Sowbiba\CommandWatcherBundle\Listener\CommandListener
         arguments:
             - '@sowbiba_command_watcher.stop_watch'
-            - '%sowbiba_command_watcher.log_reader%'
-            - '%sowbiba_command_watcher.log_writer%'
+            - '@sowbiba_command_watcher.log_writer'
+            - '%sowbiba_command_watcher.commands%'
         tags:
             - { name: kernel.event_listener, event: console.command, method: onCommandStart }
             - { name: kernel.event_listener, event: console.terminate, method: onCommandEnd }
@@ -17,11 +21,25 @@ services:
 #        class: Sowbiba\CommandWatcherBundle\Reader\FileReader
 #        arguments:
 #            - %sowbiba_command_watcher.commands%
-#            - %sowbiba_command_watcher.log_path%
-#            - %sowbiba_command_watcher.log_prefix%
+#            - "app/tmp"
+#            - ""
 #
 #    sowbiba_command_watcher.log_writer:
 #        class: Sowbiba\CommandWatcherBundle\Writer\FileWriter
 #        arguments:
-#            - %sowbiba_command_watcher.log_path%
-#            - %sowbiba_command_watcher.log_prefix%
+#            - "app/tmp"
+#            - ""
+
+
+    sowbiba_command_watcher.log_reader:
+        class: Sowbiba\CommandWatcherBundle\Reader\MongoReader
+        arguments:
+            - "%my_mongo_dsn%"
+            - "%my_mongo_database%"
+            - %sowbiba_command_watcher.commands%
+
+    sowbiba_command_watcher.log_writer:
+        class: Sowbiba\CommandWatcherBundle\Writer\MongoWriter
+        arguments:
+            - "%my_mongo_dsn%"
+            - "%my_mongo_database%"

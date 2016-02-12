@@ -45,7 +45,7 @@ class MongoReader extends AbstractReader
 
     public function getLogs($identifier)
     {
-        $this->client->selectCollection($this->db, $identifier);
+        $this->collection = $this->client->selectCollection($this->db, $identifier);
 
         $logs = $this->collection->find();
 

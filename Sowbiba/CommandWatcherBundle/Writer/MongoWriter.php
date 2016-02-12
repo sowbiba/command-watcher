@@ -47,9 +47,9 @@ class MongoWriter extends AbstractWriter
 
     public function write(array $log, $identifier)
     {
-        $this->client->selectCollection($this->db, $identifier);
+        $this->collection = $this->client->selectCollection($this->db, $identifier);
 
-        $this->collection->insert([
+        return $this->collection->insert([
             'start' => $log['start'],
             'end' => $log['end'],
             'duration' => $log['duration'],

@@ -33,8 +33,14 @@ abstract class AbstractReader implements ReaderInterface
 
     public function getDurationLogs($command)
     {
+        if (!in_array($command, $this->listenedCommands)) {
+            throw new \InvalidArgumentException("Command is not listened");
+        }
+
+        $commandSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $command);
+
         $logs = [];
-        foreach ($this->getLogs($command) as $log) {
+        foreach ($this->getLogs($commandSlug) as $log) {
             $logs[date("d/m/Y H:i:s", $log['start'])] = floatval($log['duration']);
         }
 
@@ -43,8 +49,14 @@ abstract class AbstractReader implements ReaderInterface
 
     public function getMemoryLogs($command)
     {
+        if (!in_array($command, $this->listenedCommands)) {
+            throw new \InvalidArgumentException("Command is not listened");
+        }
+
+        $commandSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $command);
+
         $logs = [];
-        foreach ($this->getLogs($command) as $log) {
+        foreach ($this->getLogs($commandSlug) as $log) {
             $logs[date("d/m/Y H:i:s", $log['start'])] = floatval($log['memory']);
         }
 
