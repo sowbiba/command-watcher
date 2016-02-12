@@ -4,8 +4,10 @@ This bundle is for supervising your symfony commands.
 It uses the Symfony Stopwatch component to get duration and memory statistics.
 
 When one of the commands registered in the config file starts, a stopwatch event is triggered and is stopped at the command end.
+
 Data collected are written with the service `log_writer` defined in the configuration.
-Each command has its log entry with `start;end;duration;memory;command parameters`.
+
+Each command has its own log entry with `start;end;duration;memory;command parameters`.
 
 You can have a graph of duration/memory statistics calling `/command-watch` url.
 
