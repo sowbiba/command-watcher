@@ -11,6 +11,11 @@ namespace Sowbiba\CommandWatcherBundle\Logger;
 interface ReaderInterface
 {
     /**
+     * @return array
+     */
+    public function getCommands();
+
+    /**
      * @param $command
      *
      * @return array

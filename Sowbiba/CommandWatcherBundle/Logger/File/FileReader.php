@@ -44,39 +44,32 @@ class FileReader implements ReaderInterface
         $this->listenedCommands     = $listenedCommands;
     }
 
+    public function getCommands()
+    {
+        return $this->listenedCommands;
+    }
+
     public function getLogs($command)
     {
         if (!in_array($command, $this->listenedCommands)) {
             throw new \InvalidArgumentException("Command is not listened");
         }
 
+        $identifier = Parser::slugifyCommand($command);
+
         $filename = sprintf(
-            "%s%s%s.log",
+            "%s%scommand-watcher.log",
             $this->logsPath,
-            $this->logsPrefix,
-            Parser::slugifyCommand($command)
+            $this->logsPrefix
         );
 
-        $logs = [];
-        foreach (file($filename) as $line) {
-            $lineData = explode(";", $line);
-            /**
-             * $start,
-             * $end,
-             * $duration,
-             * $memory,
-             * json_encode($input = $event->getInput()->getArguments())
-             */
-            $logs[] = [
-                'start' => $lineData[0],
-                'end' => $lineData[1],
-                'duration' => $lineData[2],
-                'memory' => $lineData[3],
-                'arguments' => $lineData[4],
-            ];
+        if (file_exists($filename)) {
+            $logs = json_decode(file_get_contents($filename), true);
+        } else {
+            $logs = array();
         }
 
-        return $logs;
+        return isset($logs[$identifier]) ? $logs[$identifier] : array();
     }
 
     public function getDurationLogs($command)

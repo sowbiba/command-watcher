@@ -52,22 +52,25 @@ class FileWriter implements WriterInterface
         }
 
         $filename = sprintf(
-            "%s%s%s.log",
+            "%s%scommand-watcher.log",
             $this->logsPath,
-            $this->logsPrefix,
-            $identifier
+            $this->logsPrefix
         );
 
-        $logContent = sprintf(
-            "%s;%s;%s;%s;%s\n",
-            $log['start'],
-            $log['end'],
-            $log['duration'],
-            $log['memory'],
-            $log['arguments']
-        );
+        if (file_exists($filename)) {
+            $logs = json_decode(file_get_contents($filename), true);
+        } else {
+            $logs = array();
+        }
 
-        if (! file_put_contents($filename, $logContent, FILE_APPEND | LOCK_EX)) {
+        if (isset($logs[$identifier])) {
+            array_push($logs[$identifier], $log);
+        } else {
+            $logs[$identifier] = array();
+            array_push($logs[$identifier], $log);
+        }
+
+        if (! file_put_contents($filename, json_encode($logs))) {
             throw new IOException("Cannot write to $filename");
         }
 
