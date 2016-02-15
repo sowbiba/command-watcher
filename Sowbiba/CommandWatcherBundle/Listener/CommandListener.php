@@ -7,7 +7,7 @@
  */
 namespace Sowbiba\CommandWatcherBundle\Listener;
 
-use Sowbiba\CommandWatcherBundle\Writer\WriterInterface;
+use Sowbiba\CommandWatcherBundle\Logger\WriterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;

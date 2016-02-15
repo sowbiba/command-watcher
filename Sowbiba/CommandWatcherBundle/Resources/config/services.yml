@@ -32,14 +32,14 @@ services:
 
 
     sowbiba_command_watcher.log_reader:
-        class: Sowbiba\CommandWatcherBundle\Reader\MongoReader
+        class: Sowbiba\CommandWatcherBundle\Logger\Mongo\MongoReader
         arguments:
             - "%my_mongo_dsn%"
             - "%my_mongo_database%"
             - %sowbiba_command_watcher.commands%
 
     sowbiba_command_watcher.log_writer:
-        class: Sowbiba\CommandWatcherBundle\Writer\MongoWriter
+        class: Sowbiba\CommandWatcherBundle\Logger\Mongo\MongoWriter
         arguments:
             - "%my_mongo_dsn%"
             - "%my_mongo_database%"

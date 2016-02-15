@@ -5,9 +5,9 @@
  * Date: 11/02/16
  * Time: 11:31
  */
+namespace Sowbiba\CommandWatcherBundle\Logger\Mongo;
 
-namespace Sowbiba\CommandWatcherBundle\Writer;
-
+use Sowbiba\CommandWatcherBundle\Logger\WriterInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 class MongoWriter implements WriterInterface

@@ -6,7 +6,7 @@
  * Time: 11:30
  */
 
-namespace Sowbiba\CommandWatcherBundle\Writer;
+namespace Sowbiba\CommandWatcherBundle\Logger;
 
 
 interface WriterInterface

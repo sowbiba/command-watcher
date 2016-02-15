@@ -5,7 +5,7 @@
  * Date: 11/02/16
  * Time: 11:22
  */
-namespace Sowbiba\CommandWatcherBundle\Reader;
+namespace Sowbiba\CommandWatcherBundle\Logger;
 
 
 interface ReaderInterface

@@ -6,9 +6,10 @@
  * Time: 11:31
  */
 
-namespace Sowbiba\CommandWatcherBundle\Writer;
+namespace Sowbiba\CommandWatcherBundle\Logger\File;
 
 
+use Sowbiba\CommandWatcherBundle\Logger\WriterInterface;
 use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\Filesystem\Exception\IOException;
 

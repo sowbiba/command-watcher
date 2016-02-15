@@ -5,10 +5,11 @@
  * Date: 07/02/16
  * Time: 13:27
  */
-namespace Sowbiba\CommandWatcherBundle\Reader;
+namespace Sowbiba\CommandWatcherBundle\Logger\File;
 
 
 use Sowbiba\CommandWatcherBundle\Logger\Parser;
+use Sowbiba\CommandWatcherBundle\Logger\ReaderInterface;
 
 class FileReader implements ReaderInterface
 {
