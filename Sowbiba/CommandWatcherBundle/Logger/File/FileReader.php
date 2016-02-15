@@ -49,7 +49,7 @@ class FileReader implements ReaderInterface
         return $this->listenedCommands;
     }
 
-    public function getLogs($command)
+    public function getLogs($command, $category)
     {
         if (!in_array($command, $this->listenedCommands)) {
             throw new \InvalidArgumentException("Command is not listened");
@@ -69,16 +69,8 @@ class FileReader implements ReaderInterface
             $logs = array();
         }
 
-        return isset($logs[$identifier]) ? $logs[$identifier] : array();
-    }
+        $commandLogs = isset($logs[$identifier]) ? $logs[$identifier] : array();
 
-    public function getDurationLogs($command)
-    {
-        return Parser::get($this->getLogs($command), 'duration');
-    }
-
-    public function getMemoryLogs($command)
-    {
-        return Parser::get($this->getLogs($command), 'memory');
+        return Parser::get($commandLogs, $category);
     }
 } 

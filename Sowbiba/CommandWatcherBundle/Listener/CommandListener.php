@@ -95,13 +95,13 @@ class CommandListener
 
         $memory = $stopWatchEvent->getMemory() / 1048576;     // Returns the max memory usage of all periods
 
-        $log = [
+        $log = array(
             'start' => $start,
             'end' => $end,
             'duration' => $duration,
             'memory' => $memory,
             'arguments' => json_encode($arguments)
-        ];
+        );
 
         $output->writeln(sprintf("===== Command [ <info>%s</info> ] =====", $command->getName()));
         $output->writeln("");

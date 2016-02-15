@@ -30,7 +30,7 @@ abstract class Parser
             throw new \InvalidArgumentException(" Category [ $category ] is not available.");
         }
 
-        $categoryLogs = [];
+        $categoryLogs = array();
         foreach ($logs as $log) {
             $categoryLogs[self::convert($log['start'], self::TYPE_DATE)] = floatval($log[$category]);
         }
@@ -55,11 +55,30 @@ abstract class Parser
     }
 
     /**
-     * @param $command
+     * @param string $command
+     *
      * @return mixed
      */
     public static function slugifyCommand($command)
     {
         return preg_replace('/[^a-zA-Z0-9_.]/', '', $command);
+    }
+
+    /**
+     * @param string $category
+     *
+     * @return string
+     */
+    public static function getCategoryUnit($category)
+    {
+        $unit = "";
+        if ('duration' === $category) {
+            $unit = "seconds";
+        }
+        if ('memory' === $category) {
+            $unit = "Mb";
+        }
+
+        return $unit;
     }
 }

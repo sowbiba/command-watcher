@@ -16,23 +16,10 @@ interface ReaderInterface
     public function getCommands();
 
     /**
-     * @param $command
+     * @param string $command
+     * @param string $category
      *
      * @return array
      */
-    public function getLogs($command);
-
-    /**
-     * @param $command
-     *
-     * @return array
-     */
-    public function getDurationLogs($command);
-
-    /**
-     * @param $command
-     *
-     * @return array
-     */
-    public function getMemoryLogs($command);
+    public function getLogs($command, $category);
 }

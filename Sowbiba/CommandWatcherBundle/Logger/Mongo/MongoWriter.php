@@ -53,12 +53,12 @@ class MongoWriter implements WriterInterface
     {
         $this->collection = $this->client->selectCollection($this->db, $identifier);
 
-        return $this->collection->insert([
+        return $this->collection->insert(array(
             'start' => $log['start'],
             'end' => $log['end'],
             'duration' => $log['duration'],
             'memory' => $log['memory'],
             'arguments' => $log['arguments']
-        ]);
+        ));
     }
 }
