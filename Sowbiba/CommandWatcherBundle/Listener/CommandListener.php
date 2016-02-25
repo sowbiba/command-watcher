@@ -20,8 +20,6 @@ use Symfony\Component\Console\Event\ConsoleTerminateEvent;
  */
 class CommandListener
 {
-    const LOG_PREFIX = 'sowbiba_command_';
-
     /**
      * @var Watcher
      */
@@ -66,6 +64,6 @@ class CommandListener
 
         $commandSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $command->getName());
 
-        $this->watcher->end($commandSlug, $event->getOutput(), $event->getInput());
+        $this->watcher->end($commandSlug, $event->getOutput(), $event->getInput()->getArguments());
     }
 } 

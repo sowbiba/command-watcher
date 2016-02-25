@@ -17,6 +17,14 @@ services:
             - { name: kernel.event_listener, event: console.command, method: onCommandStart }
             - { name: kernel.event_listener, event: console.terminate, method: onCommandEnd }
 
+    sowbiba_command_watcher.request_listener:
+        class: Sowbiba\CommandWatcherBundle\Listener\RequestListener
+        arguments:
+            - '@sowbiba_command_watcher.watcher'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onRequestStart }
+            - { name: kernel.event_listener, event: kernel.finish_request, method: onFinishRequest }
+
     sowbiba_command_watcher.log_reader:
         class: Sowbiba\CommandWatcherBundle\Logger\File\FileReader
         arguments:

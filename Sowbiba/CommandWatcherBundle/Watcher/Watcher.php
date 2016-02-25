@@ -51,19 +51,17 @@ final class Watcher
     /**
      * Ends the watch, extract logs and write them to the storage service chosen.
      * @param $identifier
-     * @param OutputInterface|null $output
-     * @param InputInterface $input
+     * @param OutputInterface|null $output If you want to write on output the logs
+     * @param array $extra
      *
      * @return array
      */
-    public function end($identifier, OutputInterface $output = null, InputInterface $input)
+    public function end($identifier, OutputInterface $output = null, $extra = array())
     {
         $logs = array();
 
         if ($this->stopWatch->isStarted($identifier)) {
             $stopWatchEvent = $this->stopWatch->stop($identifier);
-
-            $extra = null !== $input ? $input->getArguments() : array();
 
             $logs = $this->extractLog($stopWatchEvent, $output, $extra);
 
