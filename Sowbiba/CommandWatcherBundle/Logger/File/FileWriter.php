@@ -52,9 +52,10 @@ class FileWriter implements WriterInterface
         }
 
         $filename = sprintf(
-            "%s%scommand-watcher.log",
+            "%s%s%s.log",
             $this->logsPath,
-            $this->logsPrefix
+            $this->logsPrefix,
+            $identifier
         );
 
         if (file_exists($filename)) {

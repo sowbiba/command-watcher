@@ -55,13 +55,13 @@ abstract class Parser
     }
 
     /**
-     * @param string $command
+     * @param string $identifier
      *
      * @return mixed
      */
-    public static function slugifyCommand($command)
+    public static function slugifyIdentifier($identifier)
     {
-        return preg_replace('/[^a-zA-Z0-9_.]/', '', $command);
+        return preg_replace('/[^a-zA-Z0-9_.]/', '', $identifier);
     }
 
     /**

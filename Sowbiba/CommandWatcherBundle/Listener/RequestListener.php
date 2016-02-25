@@ -36,7 +36,13 @@ class RequestListener
 
     public function onRequestStart(GetResponseEvent $event)
     {
-        $requestUriSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $event->getRequest()->getUri());
+        $route = $event->getRequest()->attributes->get('_route');
+
+        if ('_' === substr($route, 0, 1)) { // symfony system routes
+            return;
+        }
+
+        $requestUriSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $route);
 
         $this->watcher->start($requestUriSlug);
     }
@@ -45,7 +51,13 @@ class RequestListener
 
     public function onFinishRequest(FinishRequestEvent $event)
     {
-        $requestUriSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $event->getRequest()->getUri());
+        $route = $event->getRequest()->attributes->get('_route');
+
+        if ('_' === substr($route, 0, 1)) {
+            return;
+        }
+
+        $requestUriSlug = preg_replace('/[^a-zA-Z0-9_.]/', '', $route);
 
         $this->watcher->end($requestUriSlug);
     }

@@ -14,7 +14,7 @@ class CommandWatcherController extends Controller
         $logReader = $this->get('sowbiba_command_watcher.log_reader');
 
         $parameters = array(
-            'commands' => $logReader->getCommands(),
+            'commands' => $this->getParameter('sowbiba_command_watcher.commands'),
             'categories' => Parser::$categories,
         );
 

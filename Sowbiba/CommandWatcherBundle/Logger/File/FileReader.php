@@ -14,11 +14,6 @@ use Sowbiba\CommandWatcherBundle\Logger\ReaderInterface;
 class FileReader implements ReaderInterface
 {
     /**
-     * @var array
-     */
-    private $listenedCommands;
-
-    /**
      * @var string
      */
     private $logsPath;
@@ -29,38 +24,27 @@ class FileReader implements ReaderInterface
     private $logsPrefix;
 
     /**
-     * @param array $listenedCommands
      * @param string $logsPath
      * @param string $logsPrefix
      */
     public function __construct(
-        array $listenedCommands,
         $logsPath,
         $logsPrefix
     )
     {
         $this->logsPath             = rtrim($logsPath, '/') . '/';
         $this->logsPrefix           = $logsPrefix;
-        $this->listenedCommands     = $listenedCommands;
     }
 
-    public function getCommands()
+    public function getLogs($identifier, $category)
     {
-        return $this->listenedCommands;
-    }
-
-    public function getLogs($command, $category)
-    {
-        if (!in_array($command, $this->listenedCommands)) {
-            throw new \InvalidArgumentException("Command is not listened");
-        }
-
-        $identifier = Parser::slugifyCommand($command);
+        $identifier = Parser::slugifyIdentifier($identifier);
 
         $filename = sprintf(
-            "%s%scommand-watcher.log",
+            "%s%s%s.log",
             $this->logsPath,
-            $this->logsPrefix
+            $this->logsPrefix,
+            $identifier
         );
 
         if (file_exists($filename)) {
@@ -69,8 +53,8 @@ class FileReader implements ReaderInterface
             $logs = array();
         }
 
-        $commandLogs = isset($logs[$identifier]) ? $logs[$identifier] : array();
+        $logs = isset($logs[$identifier]) ? $logs[$identifier] : array();
 
-        return Parser::get($commandLogs, $category);
+        return Parser::get($logs, $category);
     }
 } 

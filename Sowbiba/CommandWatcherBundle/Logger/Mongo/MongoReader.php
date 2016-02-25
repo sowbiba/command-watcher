@@ -14,11 +14,6 @@ use Sowbiba\CommandWatcherBundle\Logger\ReaderInterface;
 class MongoReader implements ReaderInterface
 {
     /**
-     * @var array
-     */
-    private $listenedCommands;
-
-    /**
      * The Mongo client to request DB.
      *
      * @var \MongoClient
@@ -43,48 +38,23 @@ class MongoReader implements ReaderInterface
      * @param string $dsn The DSN to connect to MongoDB.
      * @param string $db The collection to use.
      */
-    public function __construct($dsn, $db, array $listenedCommands)
+    public function __construct($dsn, $db)
     {
         $this->client           = new \MongoClient($dsn);
         $this->db               = $db;
-        $this->listenedCommands = $listenedCommands;
     }
 
     /**
-     * @param $command
+     * @param $identifier
      *
      * @return array
      */
-    public function getLogs($command)
+    public function getLogs($identifier, $category)
     {
-        if (!in_array($command, $this->listenedCommands)) {
-            throw new \InvalidArgumentException("Command is not listened");
-        }
+        $this->collection = $this->client->selectCollection($this->db, Parser::slugifyIdentifier($identifier));
 
-        $this->collection = $this->client->selectCollection($this->db, Parser::slugifyCommand($command));
+        $logs = iterator_to_array($this->collection->find());
 
-        $logs = $this->collection->find();
-
-        return iterator_to_array($logs);
-    }
-
-    /**
-     * @param $command
-     *
-     * @return array
-     */
-    public function getDurationLogs($command)
-    {
-        return Parser::get($this->getLogs($command), 'duration');
-    }
-
-    /**
-     * @param $command
-     *
-     * @return array
-     */
-    public function getMemoryLogs($command)
-    {
-        return Parser::get($this->getLogs($command), 'memory');
+        return Parser::get($logs, $category);
     }
 } 
