@@ -3,19 +3,19 @@ parameters:
     my_mongo_dsn: "mongodb://172.17.0.5:27017/command-watcher"
 
 services:
+    sowbiba_command_watcher.watcher:
+        class: Sowbiba\CommandWatcherBundle\Watcher\Watcher
+        arguments:
+            - '@sowbiba_command_watcher.log_writer'
+
     sowbiba_command_watcher.command_listener:
         class: Sowbiba\CommandWatcherBundle\Listener\CommandListener
         arguments:
-            - '@sowbiba_command_watcher.stop_watch'
-            - '@sowbiba_command_watcher.log_writer'
+            - '@sowbiba_command_watcher.watcher'
             - '%sowbiba_command_watcher.commands%'
         tags:
             - { name: kernel.event_listener, event: console.command, method: onCommandStart }
             - { name: kernel.event_listener, event: console.terminate, method: onCommandEnd }
-
-
-    sowbiba_command_watcher.stop_watch:
-        class: Symfony\Component\Stopwatch\Stopwatch
 
     sowbiba_command_watcher.log_reader:
         class: Sowbiba\CommandWatcherBundle\Logger\File\FileReader
