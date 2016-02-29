@@ -28,7 +28,6 @@ services:
     sowbiba_command_watcher.log_reader:
         class: Sowbiba\CommandWatcherBundle\Logger\File\FileReader
         arguments:
-            - %sowbiba_command_watcher.commands%
             - "%kernel.root_dir%/tmp"
             - ""
 

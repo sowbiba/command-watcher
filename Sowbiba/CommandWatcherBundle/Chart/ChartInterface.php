@@ -19,5 +19,5 @@ interface ChartInterface
      *
      * @return mixed
      */
-    public static function get($command, $category, array $logs, $unit);
+    public static function get($command, $category, array $logs);
 }
